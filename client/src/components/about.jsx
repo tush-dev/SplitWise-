@@ -148,9 +148,9 @@ to keep improving the project.</p>
 <br/>
 <h2 id="license">License</h2>
 <br/>
-<p>This project is MIT licensed.</p>
+<p>This project is licensed.</p>
 <br/>
-<p>Copyright 2022 Sunny G Vaikathuparampan</p>
+<p>Copyright 2024 Tushar</p>
 <br/>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <br/>
