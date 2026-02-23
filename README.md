@@ -1,25 +1,5 @@
 
 
-<div align="center">
-  <a href="https://splitapp-rnjo.onrender.com/">
-    <img src="https://github.com/tuzup/SplitApp/blob/master/client/public/static/logo.png?raw=true" alt="Logo" width="80" height="80">
-  </a>
-
-  <h2 align="center">SplitApp</h2>
-
-  <p align="center">
-    Build with the MERN stack (MongoDB, Express, React and NodeJS).
-    <br />
-    <a href="https://github.com/tuzup/SplitApp/"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://splitapp-rnjo.onrender.com/">View Demo</a>
-    ·
-    <a href="https://github.com/tuzup/SplitApp/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/tuzup/SplitApp/issues">Request Feature</a>
-  </p>
-</div>
 
 ![SplitApp](https://raw.githubusercontent.com/tuzup/SplitApp/master/Screenshots/dashboard-main-transparent.png)
 
