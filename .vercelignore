@@ -1,0 +1,9 @@
+backend
+.git
+node_modules
+.env
+.env.*
+!.env.example
+README.md
+Procfile
+package-lock.json

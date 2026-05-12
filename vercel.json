@@ -3,11 +3,14 @@
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/build",
   "public": "frontend/public",
-  "framework": "create-react-app",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- frontend/ || true",
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "REACT_APP_API_URL": "@react_app_api_url"
+  }
 }
