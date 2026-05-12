@@ -1,16 +1,23 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm run build",
-  "outputDirectory": "frontend/build",
-  "public": "frontend/public",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- frontend/ || true",
-  "rewrites": [
+  "name": "split-wise",
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
   ],
-  "env": {
-    "REACT_APP_API_URL": "@react_app_api_url"
-  }
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
