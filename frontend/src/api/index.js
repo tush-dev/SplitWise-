@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseURL = process.env.REACT_APP_API_URL || ''
+const baseURL = process.env.REACT_APP_API_URL || 'https://splitwise-production-dac1.up.railway.app'
+console.log('API Base URL:', baseURL)
 const API = axios.create({ baseURL })
 
 const profile = JSON.parse(localStorage.getItem('profile'))
