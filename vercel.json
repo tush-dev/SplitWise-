@@ -1,5 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
+  "installCommand": "npm install --prefix frontend",
+  "buildCommand": "npm run build --prefix frontend",
   "outputDirectory": "frontend/build"
 }
