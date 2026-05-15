@@ -35,7 +35,7 @@ export const CalenderExpenseGraph = () => {
             }
         ]
     }
-
+    //console.log("ok")
     const options = {
         tension: 0.4,
         maintainAspectRatio: false,
