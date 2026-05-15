@@ -1,8 +1,24 @@
 import axios from 'axios'
 
-const baseURL = process.env.REACT_APP_API_URL || 'https://splitwise-production-dac1.up.railway.app'
+const baseURL = 'https://splitwise-production-dac1.up.railway.app'
 console.log('API Base URL:', baseURL)
 const API = axios.create({ baseURL })
+
+API.interceptors.request.use((config) => {
+  console.log('Sending API request:', config.method?.toUpperCase(), config.baseURL + config.url)
+  return config
+})
+
+API.interceptors.response.use(
+  (response) => {
+    console.log('API response:', response.status, response.config.url)
+    return response
+  },
+  (error) => {
+    console.error('API error:', error?.response?.status, error?.config?.url, error?.message)
+    return Promise.reject(error)
+  }
+)
 
 const profile = JSON.parse(localStorage.getItem('profile'))
 
