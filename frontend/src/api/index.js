@@ -1,8 +1,7 @@
 import axios from 'axios'
 
-
-//const API = axios.create({ baseURL: 'http://localhost:3001'})
-const API = axios.create({ baseURL: ''})
+const baseURL = process.env.REACT_APP_API_URL || ''
+const API = axios.create({ baseURL })
 
 const profile = JSON.parse(localStorage.getItem('profile'))
 
