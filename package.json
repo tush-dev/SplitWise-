@@ -1,9 +1,0 @@
-{
-  "name": "splitwise",
-  "private": true,
-  "scripts": {
-    "postinstall": "npm install --prefix frontend",
-    "build": "npm run build --prefix frontend",
-    "vercel-build": "npm run build --prefix frontend"
-  }
-}
