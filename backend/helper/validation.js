@@ -1,54 +1,53 @@
 const model = require('../model/schema')
 const logger = require('./logger')
 
+const validationError = (message) => {
+    var err = new Error(message)
+    err.status = 400
+    return err
+}
+
+const hasValue = (value) => {
+    if (typeof value === 'string') {
+        return value.trim().length > 0
+    }
+
+    if (Array.isArray(value)) {
+        return value.length > 0
+    }
+
+    return Boolean(value)
+}
+
 exports.notNull = (value) => {
-    if (value)
+    if (hasValue(value))
         return true
     else {
-        var err = new Error("Please input the required field")
-        err.status = 400
-        throw err
+        throw validationError("Please input the required field")
     }
 }
 
 exports.emailValidation = (email) => {
-    if (email && email.includes("@") && email.includes(".com"))
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (typeof email === 'string' && emailRegex.test(email.trim()))
         return true
     else {
-        var err = new Error("Email validation fail!!")
-        err.status = 400
-        throw err
+        throw validationError("Email validation fail!!")
     }
 }
 
 exports.passwordValidation = (pass) => {
-    // if(pass)
-    // if (pass.search(/[a-z]/) >= 0 && pass.search(/[A-Z]/) >= 0 &&
-    //     pass.search(/[0-9]/) >= 0 &&
-    //     pass.search(/[!@#$%^&*()]/) >= 0 &&
-    //     pass.length >= 8) {
-    //     return true
-    // } 
-        if(pass && pass.length >=8){
-            return true
-        }
-        var err = new Error("Password validation fail!!")
-        err.status = 400
-        throw err
+    if (typeof pass === 'string' && pass.length >= 8) {
+        return true
     }
-
+    throw validationError("Password validation fail!!")
+}
 
 exports.currencyValidation = (currency) => {
-    if (currency &&
-        currency == "INR" ||
-        currency == "USD" ||
-        currency == "EUR") {
+    if (currency && (currency === "INR" || currency === "USD" || currency === "EUR")) {
         return true
     } else {
-        var err = new Error("Currency validation fail!!")
-        err.status = 400
-        throw err
-
+        throw validationError("Currency validation fail!!")
     }
 }
 
@@ -63,12 +62,29 @@ exports.userValidation = async (email) => {
 }
 
 exports.groupUserValidation = async (email, groupId) => {
-    var groupMembers = await model.Group.findOne({
-        _id: groupId
-    }, {
-        groupMembers: 1,
-        _id: 0
-    })
+    var groupMembers
+
+    try {
+        groupMembers = await model.Group.findOne({
+            _id: groupId
+        }, {
+            groupMembers: 1,
+            _id: 0
+        })
+    } catch (err) {
+        if (err.name !== 'CastError') {
+            throw err
+        }
+
+        logger.warn([`Group User Valdation fail : Group ID : [${groupId}] | user : [${email}]`])
+        return false
+    }
+
+    if (!groupMembers || !Array.isArray(groupMembers.groupMembers)) {
+        logger.warn([`Group User Valdation fail : Group ID : [${groupId}] | user : [${email}]`])
+        return false
+    }
+
     groupMembers = groupMembers['groupMembers']
     if (groupMembers.includes(email))
         return true
