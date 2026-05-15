@@ -2,7 +2,7 @@ import { Grid, Box, styled, Typography, autocompleteClasses, Popover, MenuList, 
 import React, { useState } from 'react'
 import useResponsive from '../../theme/hooks/useResponsive';
 import PropTypes from 'prop-types';
-import { convertToCurrency, currencyFind, getMonthMMM } from '../../utils/helper';
+import { convertToCurrency, currencyFind, getMonthMMM, zeroPad } from '../../utils/helper';
 import Iconify from '../Iconify';
 import { Link as RouterLink } from 'react-router-dom';
 import dataConfig from '../../config.json';
@@ -86,7 +86,7 @@ export default function ExpenseCard({ expenseId, expenseName, expenseAmount, exp
                         left: 20,
                         position: 'relative'
                     }}>
-                        <b>{new Date(expenseDate).getDate().zeroPad()}</b>
+                        <b>{zeroPad(new Date(expenseDate).getDate())}</b>
                     </Typography>
                     <Typography variant="body" sx={{
                         fontSize: 18,

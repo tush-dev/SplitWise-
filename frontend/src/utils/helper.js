@@ -46,6 +46,6 @@ export function getMonthMMM(expDate) {
   return monthNamesMMM[date.getMonth()];
 }
 
-Number.prototype.zeroPad = function() {
-  return ('0'+this).slice(-2);
-};
+export function zeroPad(value) {
+  return String(value).padStart(2, '0');
+}
