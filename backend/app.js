@@ -1,4 +1,5 @@
-var dotenv = require('dotenv')
+require('dotenv').config()
+
 var express = require('express')
 var logger = require('./helper/logger')
 var requestLogger = require('./helper/requestLogger')
@@ -6,7 +7,6 @@ var apiAuth = require('./helper/apiAuthentication')
 var cors = require('cors')
 
 const path = require('path');
-dotenv.config()
 
 var usersRouter = require('./routes/userRouter')
 var gorupRouter = require('./routes/groupRouter')
