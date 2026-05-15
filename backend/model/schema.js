@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var logger = require('../helper/logger')
 
+mongoose.set('strictQuery', false)
+
 mongoose.connect(process.env.MONGODB_URI, 
 //     {
 //     maxPoolSize: 50,
