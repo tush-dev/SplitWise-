@@ -1,4 +1,4 @@
-import { Grid, Box, styled, Typography, autocompleteClasses, Popover, MenuList, MenuItem, ListItemIcon, ListItemText, Modal, Stack, Button } from '@mui/material'
+import { Box, styled, Typography, Popover, MenuList, MenuItem, ListItemIcon, ListItemText, Modal, Stack, Button, IconButton, Tooltip, Divider } from '@mui/material'
 import React, { useState } from 'react'
 import useResponsive from '../../theme/hooks/useResponsive';
 import PropTypes from 'prop-types';
@@ -10,12 +10,17 @@ import { deleteExpenseService } from '../../services/expenseServices';
 
 
 const DateBoxStyle = styled('div')(({ theme }) => ({
-    width: 85,
-    height: 85,
-    borderRadius: 50,
-    padding: 5,
-    background: theme.palette['warning'].lighter,
-    color: theme.palette['warning'].darker
+    width: 76,
+    height: 76,
+    borderRadius: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: `linear-gradient(145deg, ${theme.palette.warning.lighter}, #fff7d6)`,
+    color: theme.palette.warning.darker,
+    border: `1px solid ${theme.palette.warning.light}`,
+    flexShrink: 0
 }));
 
 ExpenseCard.propTypes = {
@@ -67,80 +72,156 @@ export default function ExpenseCard({ expenseId, expenseName, expenseAmount, exp
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
     return (
-        <Grid container
-            alignItems="center"
-            justifyContent="space-between"
+        <Box
             sx={{
-                boxShadow: 5,
-                borderRadius: 1,
-                pl: 1,
-                py: 1
+                position: 'relative',
+                display: 'flex',
+                alignItems: { xs: 'flex-start', sm: 'center' },
+                gap: 2,
+                p: { xs: 1.5, sm: 2 },
+                pr: { xs: 1.25, sm: 1.5 },
+                bgcolor: 'background.paper',
+                border: '1px solid',
+                borderColor: 'grey.200',
+                borderRadius: 2,
+                boxShadow: '0 10px 28px rgba(33, 43, 54, 0.08)',
+                transition: 'transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease',
+                '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 16px 34px rgba(33, 43, 54, 0.12)',
+                    borderColor: 'primary.lighter'
+                }
             }}
         >
-            <Grid item xs={2}>
-                <DateBoxStyle>
-                    <Typography variant="body2" sx={{
-
+            <DateBoxStyle>
+                <Typography
+                    component="span"
+                    sx={{
                         fontSize: 28,
-                        top: 7,
-                        left: 20,
-                        position: 'relative'
-                    }}>
-                        <b>{zeroPad(new Date(expenseDate).getDate())}</b>
-                    </Typography>
-                    <Typography variant="body" sx={{
-                        fontSize: 18,
-                        left: 20,
-                        bottom: 8,
-                        position: 'relative'
-                    }}>
-                        {getMonthMMM(expenseDate)}
-                    </Typography>
-                </DateBoxStyle>
-            </Grid>
-            <Grid item xs={5} ml={1}>
-                <Typography noWrap variant='h6'
+                        fontWeight: 800,
+                        lineHeight: 1
+                    }}
+                >
+                    {zeroPad(new Date(expenseDate).getDate())}
+                </Typography>
+                <Typography
+                    component="span"
+                    sx={{
+                        fontSize: 15,
+                        fontWeight: 700,
+                        letterSpacing: 0,
+                        lineHeight: 1.2,
+                        mt: 0.5
+                    }}
+                >
+                    {getMonthMMM(expenseDate)}
+                </Typography>
+            </DateBoxStyle>
+
+            <Box sx={{
+                flex: 1,
+                minWidth: 0
+            }}>
+                <Typography
+                    noWrap
+                    variant='h6'
                     color={(theme) => theme.palette['primary'].dark}
+                    title={expenseName}
+                    sx={{
+                        fontSize: { xs: 18, sm: 20 },
+                        fontWeight: 800,
+                        lineHeight: 1.2
+                    }}
                 >
                     {expenseName}
                 </Typography>
-                <Typography variant='body2'
+                <Typography
+                    variant='body2'
                     color={(theme) => theme.palette['primary'].dark}
                     sx={{
-                        fontSize: 12
+                        fontSize: 14,
+                        fontWeight: 700,
+                        mt: 0.5
                     }}
                 >
-                    Total : {currencyFind(currencyType)} {convertToCurrency(expenseAmount)}
+                    Total: {currencyFind(currencyType)} {convertToCurrency(expenseAmount)}
                 </Typography>
-                <Typography noWrap variant='body2'
+                <Typography
+                    noWrap
+                    variant='body2'
+                    title={expenseOwner}
                     sx={{
-                        fontSize: 9
+                        color: 'text.secondary',
+                        fontSize: 12,
+                        mt: 0.75,
+                        maxWidth: '100%'
                     }}
                 >
-                    Paid by, <br />{expenseOwner}
+                    Paid by {expenseOwner}
                 </Typography>
+            </Box>
 
-            </Grid>
-            <Grid item xs={3}>
+            <Divider
+                orientation="vertical"
+                flexItem
+                sx={{
+                    display: { xs: 'none', sm: 'block' },
+                    borderColor: 'grey.200'
+                }}
+            />
+
+            <Box
+                sx={{
+                    width: { xs: 112, sm: 132 },
+                    flexShrink: 0,
+                    textAlign: 'right',
+                    alignSelf: 'center',
+                    mr: { xs: 0.5, sm: 1 }
+                }}
+            >
+                <Typography
+                    color="text.secondary"
+                    sx={{
+                        fontSize: 12,
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: 0
+                    }}>
+                    Per person
+                </Typography>
                 <Typography
                     color={(theme) => theme.palette['error'].dark}
                     sx={{
-                        fontSize: 13
-                    }}>
-                    Per preson
-                </Typography>
-                <Typography
-                    color={(theme) => theme.palette['error'].dark}
+                        fontSize: { xs: 18, sm: 21 },
+                        fontWeight: 800,
+                        lineHeight: 1.35,
+                        whiteSpace: 'nowrap'
+                    }}
                 >
-                    <b>{currencyFind(currencyType)} {convertToCurrency(expensePerMember)}</b>
+                    {currencyFind(currencyType)} {convertToCurrency(expensePerMember)}
                 </Typography>
-            </Grid>
-            <Grid item xs={1}>
-                <Box sx={{
-                    p: 0,
-                    mt: -5
-                }}>
-                    <Iconify aria-describedby={id} icon="charm:menu-meatball" onClick={handleClick} />
+            </Box>
+
+            <Box sx={{
+                flexShrink: 0
+            }}>
+                    <Tooltip title="Expense actions">
+                        <IconButton
+                            aria-describedby={id}
+                            aria-label="Expense actions"
+                            onClick={handleClick}
+                            size="small"
+                            sx={{
+                                color: 'text.secondary',
+                                bgcolor: 'grey.100',
+                                '&:hover': {
+                                    bgcolor: 'grey.200'
+                                }
+                            }}
+                        >
+                            <Iconify icon="charm:menu-meatball" width={20} height={20} />
+                        </IconButton>
+                    </Tooltip>
                     <Popover
                         id={id}
                         open={open}
@@ -174,7 +255,7 @@ export default function ExpenseCard({ expenseId, expenseName, expenseAmount, exp
                             </MenuItem>
                         </MenuList>
                     </Popover>
-                    `<Modal
+                    <Modal
                         open={deleteConfirm}
                         onClose={deleteConfirmClose}
                         aria-labelledby="modal-modal-title"
@@ -202,7 +283,6 @@ export default function ExpenseCard({ expenseId, expenseName, expenseAmount, exp
                         </Box>
                     </Modal>
                 </Box>
-            </Grid>
-        </Grid>
+        </Box>
     )
 }
