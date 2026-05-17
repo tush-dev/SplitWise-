@@ -1,108 +1,238 @@
+# 💸 SplitWise — Smart Expense Management Platform
 
+<div align="center">
 
+### Simplify shared expenses, settlements, and spending insights with a modern full-stack web application.
 
-![SplitApp](https://raw.githubusercontent.com/tuzup/SplitApp/master/Screenshots/dashboard-main-transparent.png)
+**Built with the MERN stack for seamless group expense tracking, balance settlements, and analytics.**
 
-## MERN Stack Group Expense Splitting Application
+[🚀 Live Demo](https://split-wise-chi-five.vercel.app/) • [💻 Repository](https://github.com/tush-dev/SplitWise-)
 
-  * [Introduction](#introduction)
-  * [Key Features](#key-features)
-  * [Technologies used](#technologies-used)
-      - [Frontend](#frontend)
-      - [Backend](#backend)
-      - [Database](#database)
-  * [Configuration and Setup](#configuration-and-setup)
-  * [License](#license)
+</div>
 
+---
 
-## Introduction
-This is a side project I've been working on. A full stack expense spliting app - splitwise clone made using the MERN stack (MongoDB, Express, React & Nodejs), specially designed to split group expense between friends. With this application, you can add your expense details and get an whole expense analytics feature - Group Balance, Monthly amount spend, Catagory wise expense spending graph etc... Jump right off and start adding your expenses. This project is something I've been working on in my free time so I cannot be sure that everything will work out correctly. But I'll appreciate you if can report any issue.
+## ✨ Overview
 
-![Features](https://raw.githubusercontent.com/tuzup/SplitApp/master/Screenshots/combined-screenshot.png)
+SplitWise is a full-stack expense management platform designed to make group spending simple, transparent, and stress-free.
 
-## Key Features
-- Create user groups and track group expense 
-- Keep track of shared expenses and settle your corresponding balances in a convenient and personalized way. 
-- Get Analytical graphs to understand your expenditure trend 
-- Multiple user registration.
-- Authentication using JSON web token (JWT) 
+Whether you're splitting bills with friends, managing shared expenses with roommates, or tracking collaborative spending, SplitWise helps users stay financially organized with real-time balance tracking and spending analytics.
 
+The platform focuses on:
 
-## Technologies used
-This project was created using the following technologies.
+🔹 Expense tracking  
+🔹 Group settlements  
+🔹 Balance management  
+🔹 Spending analytics  
+🔹 Secure authentication  
+🔹 Responsive user experience  
 
-#### Frontend
+---
 
-- React JS
-- Redux (for managing and centralizing application state)
-- Axios (for making api calls)
-- Material UI (for User Interface)
-- Chart.js (To display various analytics graphs)
-- React-chartjs-2  
-- Gravitar (for user profile picture)
+# 🚀 Key Features
 
-#### Backend
+### 👥 Group Expense Management
 
-- Express
-- Mongoose
-- JWT (For authentication)
-- bcryptjs (for data encryption)
+🔹 Create and manage expense groups  
+🔹 Add shared expenses among multiple participants  
+🔹 Track individual contributions  
+🔹 Simplify settlements between members  
 
-#### Database
-MongoDB (MongoDB Atlas)
+---
 
-## Configuration and Setup
-In order to run this project locally, simply fork and clone the repository or download as zip and unzip on your machine. 
-- Open the project in your prefered code editor.
-- Go to terminal -> New terminal (If you are using VS code)
-- Split your terminal into two (run the client on one terminal and the server on the other terminal)
+### 💰 Smart Balance Tracking
 
-In the first terminal - Setup Clinet 
+🔹 Real-time balance calculations  
+🔹 Clear debtor / creditor visibility  
+🔹 Settlement tracking for simplified payments  
+🔹 Personalized expense summaries  
 
+---
+
+### 📊 Expense Analytics
+
+Gain insights into spending habits with visual analytics:
+
+🔹 Monthly spending trends  
+🔹 Category-wise expense breakdown  
+🔹 Interactive financial charts  
+🔹 Better budgeting visibility  
+
+---
+
+### 🔐 Authentication & Security
+
+🔹 Secure JWT-based authentication  
+🔹 Protected routes  
+🔹 Password encryption with bcrypt  
+🔹 User session management  
+
+---
+
+# 🏗 Architecture
+
+## System Flow
+
+```text
+User Interaction
+      ↓
+React Frontend
+      ↓
+Redux State Management
+      ↓
+REST API Requests (Axios)
+      ↓
+Express Backend
+      ↓
+Authentication Middleware (JWT)
+      ↓
+Business Logic Layer
+      ↓
+MongoDB Database
+      ↓
+Analytics + Balance Calculations
+      ↓
+Updated Dashboard UI
 ```
-$ cd client
-$ npm install (to install client-side dependencies)
-$ npm start (to start the client)
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+🧩 React.js  
+🧩 Redux  
+🧩 Axios  
+🧩 Material UI  
+🧩 Chart.js  
+🧩 React-Chartjs-2  
+🧩 Gravatar  
+
+---
+
+## Backend
+
+🛠 Node.js  
+🛠 Express.js  
+🛠 JWT Authentication  
+🛠 bcrypt.js  
+🛠 Mongoose  
+
+---
+
+## Database
+
+🗄 MongoDB Atlas
+
+---
+
+# 📁 Project Structure
+
+```text
+client/
+ ┣ src/
+ ┃ ┣ components/      → reusable UI components
+ ┃ ┣ pages/           → application screens
+ ┃ ┣ redux/           → centralized state management
+ ┃ ┣ utils/           → helper utilities
+ ┃ ┗ assets/          → static resources
+
+server/
+ ┣ routes/            → API route definitions
+ ┣ controllers/       → request handling logic
+ ┣ middleware/        → auth + validation middleware
+ ┣ models/            → database schemas
+ ┗ config/            → environment + DB configuration
 ```
 
-For setting up backend (root directory) 
-- create a .env file in the root of your directory.
-- Supply the following credentials
+---
 
+# ⚙️ Local Setup
+
+## Clone Repository
+
+```bash
+git clone https://github.com/tush-dev/SplitWise-.git
+cd SplitWise-
 ```
+
+---
+
+## Frontend Setup
+
+```bash
+cd client
+npm install
+npm start
+```
+
+---
+
+## Backend Setup
+
+Create a `.env` file in the server/root directory:
+
+```env
 PORT=3001
-MONGODB_URI=
-ACCESS_TOKEN_SECRET=
-
+MONGODB_URI=your_mongodb_connection_string
+ACCESS_TOKEN_SECRET=your_secret_key
 ```
 
-Please follow [This tutorial](https://dev.to/dalalrohit/how-to-connect-to-mongodb-atlas-using-node-js-k9i) to create your mongoDB connection url, which you'll use as your MONGODB_URI
+Install dependencies and start backend:
 
-Provide some random key in ACCESS_TOKEN_SECRET or you could generate one using node enter the below command in the terminal to genrate a random secret key 
-
-```
-node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
-```
-
-In the second terminal (*in the project root directory (back-end))
-
-```
-$ npm install (to install server-side dependencies)
-& npm start (to start the server)
+```bash
+npm install
+npm start
 ```
 
-## Comment
-I intend to keep adding more features to this application, so if you like it, please give it a star, that will encourage me to 
-to keep improving the project.
+---
 
-## License
+# 🌟 Why This Project Matters
 
-This project is licensed.
+This project demonstrates practical full-stack engineering concepts:
 
-Copyright 2024 Tushar
+◆ Real-world MERN architecture  
+◆ Authentication & authorization  
+◆ REST API design  
+◆ Database schema modeling  
+◆ Financial calculation logic  
+◆ State management with Redux  
+◆ Interactive analytics dashboards  
+◆ Responsive frontend engineering  
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+---
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+# 🎯 Future Improvements
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Planned enhancements:
+
+🔹 Expense reminders  
+🔹 Payment gateway integration  
+🔹 Real-time notifications  
+🔹 Multi-currency support  
+🔹 Advanced budgeting insights  
+🔹 Dark mode support  
+
+---
+
+# 👨‍💻 Author
+
+**Tushar Panwar**
+
+B.Tech @ NIT Jalandhar  
+Full-Stack Developer | AI Engineering Enthusiast
+
+---
+
+<div align="center">
+
+### ⭐ If you found this project useful, consider starring the repository.
+
+</div>
+
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
