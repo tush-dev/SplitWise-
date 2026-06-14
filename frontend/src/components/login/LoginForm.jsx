@@ -1,14 +1,12 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useFormik, Form, FormikProvider } from 'formik';
-// material
-import {  Stack,  TextField, IconButton, InputAdornment,  Snackbar, Alert } from '@mui/material';
+import { Stack, TextField, IconButton, InputAdornment, Snackbar, Alert } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-// component
 import Iconify from '../Iconify';
 import { login } from '../../services/auth';
-
 import useResponsive from '../../theme/hooks/useResponsive';
+import { useSnackbar } from '../../context/SnackbarContext';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +15,7 @@ export default function LoginForm() {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState(" ");
-
+  const { addToast } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -33,9 +31,11 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: async () => {
-      //User Login Service call - Upon success user is redirected to dashboard 
-      //Login fail snackbar displays error
-      await login(values, setShowAlert, setAlertMessage)
+      try {
+        await login(values, setShowAlert, setAlertMessage)
+      } catch (e) {
+        addToast('Login failed. Please check your credentials.', 'error');
+      }
     },
   });
 

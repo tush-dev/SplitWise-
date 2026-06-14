@@ -47,14 +47,17 @@ export const ViewExpense = () => {
     return (
         <>
             {loading ? <Loading /> :
-                <Container maxWidth='md' disableGutters='true' sx={{
+                <Container maxWidth='md' sx={{
                     bgcolor: 'background.paper',
-                    borderRadius: 2,
+                    borderRadius: { xs: 2, md: 4 },
                     boxShadow: 5,
+                    px: { xs: 1, sm: 2 },
+                    py: { xs: 2, md: 4 },
                 }}>
                     <AlertBanner severity='error' alertMessage={alertMessage} showAlert={alert} />
                     <Box sx={{
-                        bgcolor: (theme) => theme.palette[color[Math.floor(Math.random() * 5)]].lighter, p: 6, mb: 3,
+                        bgcolor: (theme) => theme.palette[color[Math.floor(Math.random() * 5)]].lighter,
+                        p: { xs: 3, md: 6 }, mb: 3, borderRadius: 2,
                         width: '100%'
                     }}
 
@@ -66,7 +69,7 @@ export const ViewExpense = () => {
                             {expenseDetails?.expenseDescription}
                         </Typography>
                     </Box>
-                    <Grid container spacing={3} p={4}>
+                    <Grid container spacing={3} p={{ xs: 2, md: 4 }}>
 
                         <Grid item md={6} xs={12} >
                             <Typography variant='h6'>

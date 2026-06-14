@@ -1,4 +1,4 @@
-import { Grid, CardActionArea, CardContent, CardMedia, Typography, Container, Card, Box, Link, alpha, Fab } from "@mui/material";
+import { Grid, Typography, Container, Card, Link, alpha, Fab } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getUserGroupsService } from "../../services/groupServices";
 import Iconify from "../Iconify";
@@ -28,14 +28,15 @@ export default function Group() {
   const checkActive = (split) => {
     for (var key in split) {
       if (split.hasOwnProperty(key)) {
-        if (Math.round(split[key]) != 0)
+        if (Math.round(split[key]) !== 0)
           return true
       }
     }
     return false
   }
+
   return (
-    <Container>
+    <Container maxWidth="xl" sx={{ px: { xs: 1, sm: 2 } }}>
       {loading ? <Loading /> :
         <>
           <Fab component={RouterLink}
@@ -45,34 +46,31 @@ export default function Group() {
               right: 20,
               bottom: 20,
               left: 'auto',
-              position: 'fixed'
+              position: 'fixed',
+              zIndex: 1200
             }}>
-            <Iconify icon="fluent:people-team-add-20-filled" sx={{
-              width: '100%',
-              height: 20
-            }} />
+            <Iconify icon="fluent:people-team-add-20-filled" sx={{ width: '100%', height: 20 }} />
           </Fab>
-          <Typography variant="h3" pb={2}>
-            Your Groups,
+          <Typography variant="h4" pb={2} fontWeight={700} fontSize={{ xs: 24, md: 34 }}>
+            Your Groups
           </Typography>
-          <Grid container spacing={4} >
-
+          <Grid container spacing={{ xs: 2, md: 4 }}>
             {group?.map(myGroup => (
               <Grid item xs={12} md={6} lg={6} key={myGroup?._id}>
                 <Link component={RouterLink}
-                to={dataConfig.VIEW_GROUP_URL+myGroup?._id}
-                sx={{ textDecoration: 'none' }}
-              >
-                <GroupCards
-                  title={myGroup?.groupName}
-                  description={myGroup?.groupDescription}
-                  groupMembers={myGroup?.groupMembers}
-                  share={myGroup?.split[0][emailId]}
-                  currencyType={myGroup?.groupCurrency}
-                  groupCategory={myGroup?.groupCategory}
-                  isGroupActive={checkActive(myGroup?.split[0])}
-                  color={color[Math.floor(Math.random() * 5)]}
-                />
+                  to={dataConfig.VIEW_GROUP_URL + myGroup?._id}
+                  sx={{ textDecoration: 'none' }}
+                >
+                  <GroupCards
+                    title={myGroup?.groupName}
+                    description={myGroup?.groupDescription}
+                    groupMembers={myGroup?.groupMembers}
+                    share={myGroup?.split[0][emailId]}
+                    currencyType={myGroup?.groupCurrency}
+                    groupCategory={myGroup?.groupCategory}
+                    isGroupActive={checkActive(myGroup?.split[0])}
+                    color={color[Math.floor(Math.random() * 5)]}
+                  />
                 </Link>
               </Grid>
             ))}
@@ -81,34 +79,19 @@ export default function Group() {
                 to={dataConfig.CREATE_GROUP_URL}
                 sx={{ textDecoration: 'none' }}
               >
-                <Card
-                  sx={{
-                    p: 0,
-                    boxShadow: 10,
-                    borderRadius: 2,
-                    backgroundImage: (theme) =>
-                      `linear-gradient(169deg, ${alpha(theme.palette['primary'].light, 0.6)} 0%, ${alpha(
-                        theme.palette['primary'].darker,
-                        0.55
-                      )} 70%)`,
-                    minHeight: 310
-                  }}
-                >
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    minHeight={310}
-                  >
-                    <Grid item xs={'auto'} md={'auto'} >
-                      <Iconify icon="fluent:people-team-add-20-filled" color={'#fff'} sx={{
-                        width: '100%',
-                        height: 50
-                      }} />
-                      <Typography variant="h4" fontSize={28} color='#fff' sx={{
-                        width: '100%', textDecoration: 'none'
-                      }}>
+                <Card sx={{
+                  p: 0,
+                  boxShadow: 10,
+                  borderRadius: 2,
+                  backgroundImage: (theme) =>
+                    `linear-gradient(169deg, ${alpha(theme.palette['primary'].light, 0.6)} 0%, ${alpha(theme.palette['primary'].darker, 0.55)} 70%)`,
+                  minHeight: { xs: 200, md: 310 }
+                }}>
+                  <Grid container direction="row" justifyContent="center" alignItems="center"
+                    minHeight={{ xs: 200, md: 310 }}>
+                    <Grid item xs={'auto'} md={'auto'}>
+                      <Iconify icon="fluent:people-team-add-20-filled" color={'#fff'} sx={{ width: '100%', height: { xs: 30, md: 50 } }} />
+                      <Typography variant="h5" fontSize={{ xs: 20, md: 28 }} color='#fff' sx={{ width: '100%', textDecoration: 'none' }}>
                         Create new group!
                       </Typography>
                     </Grid>

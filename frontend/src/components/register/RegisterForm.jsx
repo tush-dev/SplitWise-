@@ -1,14 +1,12 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useFormik, Form, FormikProvider } from 'formik';
-// material
-import {  Stack,  TextField, IconButton, InputAdornment,  Snackbar, Alert } from '@mui/material';
+import { Stack, TextField, IconButton, InputAdornment, Snackbar, Alert } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-// component
 import Iconify from '../Iconify';
 import { register } from '../../services/auth';
-
 import useResponsive from '../../theme/hooks/useResponsive';
+import { useSnackbar } from '../../context/SnackbarContext';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +15,7 @@ export default function RegisterForm() {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState(" ");
-
+  const { addToast } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
@@ -37,9 +35,11 @@ export default function RegisterForm() {
     },
     validationSchema: RegisterSchema,
     onSubmit: async () => {
-      //User Register Service call - Upon success user is redirected to dashboard 
-      //Register fail snackbar displays error
-      await register(values, setShowAlert, setAlertMessage)
+      try {
+        await register(values, setShowAlert, setAlertMessage)
+      } catch (e) {
+        addToast('Registration failed. Please try again.', 'error');
+      }
     },
   });
 

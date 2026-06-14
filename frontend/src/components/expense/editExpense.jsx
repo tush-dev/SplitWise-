@@ -103,20 +103,9 @@ export default function EditExpense() {
   return (
     <>
     {loading? <Loading/> : 
-      <Box sx={{
-        position: 'relative',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
-        borderRadius:2,
-        ...(mdUp && { width: 700 })
-      }}
-      >
+      <Container maxWidth="sm" sx={{ px: { xs: 1, sm: 2 }, py: { xs: 2, md: 4 } }}>
         <AlertBanner showAlert={alert} alertMessage={alertMessage} severity='error' />
-        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
+        <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 700, fontSize: { xs: 20, md: 28 } }}>
           Edit Expense
         </Typography>
         <FormikProvider value={formik}>
@@ -317,7 +306,7 @@ export default function EditExpense() {
             </Grid>
           </Form>
         </FormikProvider>
-      </Box> }
+      </Container> }
       </>                  
   )
 }

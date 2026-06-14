@@ -1,12 +1,7 @@
-import {useRoutes} from 'react-router-dom';
-
-//Layouts 
+import { useRoutes } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
-
-//configfile import 
 import configData from "./config.json"
-
-//Pages 
 import Login from './components/login';
 import Register from './components/register'
 import Page404 from './components/Page404';
@@ -23,45 +18,39 @@ import EditExpense from './components/expense/editExpense';
 import { EditGroup } from './components/groups/editGroup';
 import About from './components/about';
 
-
 export default function Router() {
-  return useRoutes([
+  const element = useRoutes([
     {
       path: configData.DASHBOARD_HOME_URL,
       element: <DashboardLayout />,
       children: [
-        {path:configData.DASHBOARD_URL,
-        element: <Dashboard/>},
-        {path: configData.CREATE_GROUP_URL,
-        element: <CreateGroup/>},
-        {path:configData.ADD_EXPENSE_ROUTER_URL,
-        element: <AddExpense/>},
-        {path:configData.EDIT_EXPENSE_ROUTER_URL,
-          element: <EditExpense/>},
-        {path:configData.VIEW_EXPENSE_ROUTER_URL,
-          element: <ViewExpense/>},
-        {path:configData.USER_GROUPS_URL,
-          element: <Group/>},
-        {path:configData.VIEW_GROUP_ROUTER_URL,
-          element: <ViewGroup/>},
-        {path:configData.EDIT_GROUP_ROUTER_URL,
-          element: <EditGroup/>},
-        // {path:configData.ABOUT_URL,
-        //   element: <About/>},
-        {path:configData.USER_PROFILE_URL,
-          element: <Profile/>}
+        {path: configData.DASHBOARD_URL, element: <Dashboard/>},
+        {path: configData.CREATE_GROUP_URL, element: <CreateGroup/>},
+        {path: configData.ADD_EXPENSE_ROUTER_URL, element: <AddExpense/>},
+        {path: configData.EDIT_EXPENSE_ROUTER_URL, element: <EditExpense/>},
+        {path: configData.VIEW_EXPENSE_ROUTER_URL, element: <ViewExpense/>},
+        {path: configData.USER_GROUPS_URL, element: <Group/>},
+        {path: configData.VIEW_GROUP_ROUTER_URL, element: <ViewGroup/>},
+        {path: configData.EDIT_GROUP_ROUTER_URL, element: <EditGroup/>},
+        {path: configData.USER_PROFILE_URL, element: <Profile/>}
       ]
     },
     {
-        path: configData.LOGIN_URL,
-        element: <LogoOnlyLayout />,
-        children: [
-            {path: '', element: <Login/>},
-            {path: configData.REGISTER_URL, element: <Register/> },
-            {path: configData.USER_DELETED_URL, element: <PageUserDeleted/>},
-            {path:configData.ABOUT_URL,element: <About/>}
-        ]
+      path: configData.LOGIN_URL,
+      element: <LogoOnlyLayout />,
+      children: [
+        {path: '', element: <Login/>},
+        {path: configData.REGISTER_URL, element: <Register/>},
+        {path: configData.USER_DELETED_URL, element: <PageUserDeleted/>},
+        {path: configData.ABOUT_URL, element: <About/>}
+      ]
     },
     {path: '*', element: <Page404/>}
-  ])
+  ]);
+
+  return (
+    <AnimatePresence mode="wait">
+      {element}
+    </AnimatePresence>
+  );
 }

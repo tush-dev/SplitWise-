@@ -1,15 +1,7 @@
 import { Outlet } from 'react-router-dom';
-
-
-
-// material
 import { styled } from '@mui/material/styles';
 import Logo from '../components/Logo';
-
-
-
-
-// ----------------------------------------------------------------------
+import { AnimatePresence, motion } from 'framer-motion';
 
 const HeaderStyle = styled('header')(({ theme }) => ({
   top: 0,
@@ -23,14 +15,20 @@ const HeaderStyle = styled('header')(({ theme }) => ({
   },
 }));
 
-
 export default function LogoOnlyLayout() {
   return (
-    <>
-    <HeaderStyle>
-        <Logo />
-    </HeaderStyle>
-    <Outlet/>
-    </>
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+      >
+        <HeaderStyle>
+          <Logo />
+        </HeaderStyle>
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
   );
 }

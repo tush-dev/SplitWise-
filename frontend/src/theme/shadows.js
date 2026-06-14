@@ -1,10 +1,6 @@
-// material
 import { alpha } from '@mui/material/styles';
 import palette from './palette';
-
-// ----------------------------------------------------------------------
-
-const LIGHT_MODE = palette.grey[500];
+import paletteDark from './paletteDark';
 
 const createShadow = (color) => {
   const transparent1 = alpha(color, 0.2);
@@ -39,8 +35,9 @@ const createShadow = (color) => {
   ];
 };
 
-const createCustomShadow = (color) => {
+const createCustomShadow = (color, themePalette) => {
   const transparent = alpha(color, 0.24);
+  const p = themePalette || palette;
 
   return {
     z1: `0 1px 2px 0 ${transparent}`,
@@ -49,17 +46,21 @@ const createCustomShadow = (color) => {
     z16: `0 0 2px 0 ${transparent}, 0 16px 32px -4px ${transparent}`,
     z20: `0 0 2px 0 ${transparent}, 0 20px 40px -4px ${transparent}`,
     z24: `0 0 4px 0 ${transparent}, 0 24px 48px 0 ${transparent}`,
-    primary: `0 8px 16px 0 ${alpha(palette.primary.main, 0.24)}`,
-    secondary: `0 8px 16px 0 ${alpha(palette.secondary.main, 0.24)}`,
-    info: `0 8px 16px 0 ${alpha(palette.info.main, 0.24)}`,
-    success: `0 8px 16px 0 ${alpha(palette.success.main, 0.24)}`,
-    warning: `0 8px 16px 0 ${alpha(palette.warning.main, 0.24)}`,
-    error: `0 8px 16px 0 ${alpha(palette.error.main, 0.24)}`,
+    primary: `0 8px 16px 0 ${alpha(p.primary.main, 0.24)}`,
+    secondary: `0 8px 16px 0 ${alpha(p.secondary.main, 0.24)}`,
+    info: `0 8px 16px 0 ${alpha(p.info.main, 0.24)}`,
+    success: `0 8px 16px 0 ${alpha(p.success.main, 0.24)}`,
+    warning: `0 8px 16px 0 ${alpha(p.warning.main, 0.24)}`,
+    error: `0 8px 16px 0 ${alpha(p.error.main, 0.24)}`,
   };
 };
 
-export const customShadows = createCustomShadow(LIGHT_MODE);
+export function customShadows(mode) {
+  const p = mode === 'dark' ? paletteDark : palette;
+  return createCustomShadow(p.grey[500], p);
+}
 
-const shadows = createShadow(LIGHT_MODE);
-
-export default shadows;
+export default function shadows(mode) {
+  const p = mode === 'dark' ? paletteDark : palette;
+  return createShadow(p.grey[500]);
+}

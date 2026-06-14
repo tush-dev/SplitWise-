@@ -92,10 +92,10 @@ export const EditGroup = () => {
     }, []);
 
     return (
-        <Container>
+        <Container maxWidth="md" sx={{ px: { xs: 1, sm: 2 } }}>
             {loading ? <Loading /> :
                 <>
-                    <Typography variant="h4" pb={2} mb={3}>
+                    <Typography variant="h4" pb={2} mb={3} fontSize={{ xs: 24, md: 34 }}>
                         Edit Group
                     </Typography>
                     <AlertBanner showAlert={alert} alertMessage={alertMessage} severity='error' />

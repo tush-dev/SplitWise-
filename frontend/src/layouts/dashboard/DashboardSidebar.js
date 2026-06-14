@@ -1,24 +1,17 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-// material
 import { styled } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 import gravatarUrl from 'gravatar-url';
-
-// hooks
 import useResponsive from '../../theme/hooks/useResponsive';
-// components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
-//
 import navConfig from './NavConfig';
 import Copyright from '../../components/Copyright';
-
 import dataConfig from '../../config.json';
-
-// ----------------------------------------------------------------------
+import { motion } from 'framer-motion';
 
 const DRAWER_WIDTH = 280;
 
@@ -34,10 +27,13 @@ const AccountStyle = styled('div')(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(2, 2.5),
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: theme.palette.primary['lighter'],
+  backgroundColor: theme.palette.primary.lighter,
+  transition: 'all 0.2s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.light,
+    transform: 'translateX(4px)',
+  },
 }));
-
-// ----------------------------------------------------------------------
 
 DashboardSidebar.propTypes = {
   isOpenSidebar: PropTypes.bool,
@@ -46,20 +42,16 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const user = JSON.parse(localStorage.getItem('profile'))
-
   const { pathname } = useLocation();
-
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
-    <>
     <Scrollbar
       sx={{
         height: 1,
@@ -67,14 +59,16 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo />
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
+          <Logo />
+        </motion.div>
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5, mt: 5 }}>
         <Link underline="none" component={RouterLink} to={dataConfig.USER_PROFILE_URL}>
           <AccountStyle>
-          {user&&
-        <Avatar src={gravatarUrl(user?.emailId, {size: 200, default: dataConfig.USER_DEFAULT_LOGO_URL})} alt="photoURL" />}
+            {user &&
+              <Avatar src={gravatarUrl(user?.emailId, { size: 200, default: dataConfig.USER_DEFAULT_LOGO_URL })} alt="photoURL" />}
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                 {user?.firstName} {user?.lastName}
@@ -89,14 +83,13 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <NavSection navConfig={navConfig} />
 
-      <Box sx={{ flexGrow: 1 }} /> 
-    </Scrollbar> 
-     <Box sx={{display:'flex', flexDirection: 'column'}} > 
-        <Box sx={{marginTop:'auto', pb:2}}>
-          <Copyright/>
+      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ marginTop: 'auto', pb: 2 }}>
+          <Copyright />
         </Box>
-      </Box> 
-      </>
+      </Box>
+    </Scrollbar>
   );
 
   return (
@@ -105,14 +98,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         <Drawer
           open={isOpenSidebar}
           onClose={onCloseSidebar}
-          PaperProps={{
-            sx: { width: DRAWER_WIDTH },
-          }}
+          PaperProps={{ sx: { width: DRAWER_WIDTH } }}
         >
           {renderContent}
         </Drawer>
       )}
-
       {isDesktop && (
         <Drawer
           open
@@ -122,6 +112,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               width: DRAWER_WIDTH,
               bgcolor: 'background.default',
               borderRightStyle: 'dashed',
+              borderRightColor: (theme) => theme.palette.divider,
             },
           }}
         >
